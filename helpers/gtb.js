@@ -1,10 +1,16 @@
-const fetch = require('node-fetch');
+// mono api to get account information
+const {Mono} = require("mono-node");
 
-const url = 'https://api.withmono.com/accounts/id/statement';
+const monoClient = new Mono({
+  secretKey: "live_sk_uauQJ2QMGBTeMmIzDVAU",
+});
 
-const options = {method: 'GET'};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error('error:' + err));
+monoClient.user.walletBalance((err, results) => {
+  // Handle errors
+  if (err) {
+      console.log(err);
+  }
+  if (results){
+      console.log(results);
+  };
+});
