@@ -4,7 +4,7 @@ async function handleAccountId(code){
   const url = 'https://api.withmono.com/account/auth';
     const options = {
         method: 'POST',
-        headers: {'mono-sec-key': 'live_sk_uauQJ2QMGBTeMmIzDVAU', 'Content-Type': 'application/json'},
+        headers: {'mono-sec-key': process.env.monosecretkey, 'Content-Type': 'application/json'},
         body: JSON.stringify({code: `${code}`})
       }
       try {
@@ -17,7 +17,7 @@ async function handleAccountId(code){
 async function handleAccountInformation (code){
   const accountId = await handleAccountId(code)
   const url = `https://api.withmono.com/accounts/${accountId.id}`;
-  const options = {method: 'GET', headers: {'mono-sec-key': 'live_sk_uauQJ2QMGBTeMmIzDVAU'}};
+  const options = {method: 'GET', headers: {'mono-sec-key': process.env.monosecretkey}};
 try {
   const response =await fetch  (url,options)
   return response.json() //accountInformation
