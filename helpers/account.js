@@ -7,24 +7,32 @@ async function handleAccountId(code){
         headers: {'mono-sec-key': 'live_sk_uauQJ2QMGBTeMmIzDVAU', 'Content-Type': 'application/json'},
         body: JSON.stringify({code: `${code}`})
       }
-      const response =await fetch  (url,options)
-      return response.json()
-  // fetch(url, options)
-  // .then(res => res.json())
-  // .then(json => {return json})
-  // .catch(err => console.error('error:' + err));
+      try {
+        const response =await fetch  (url,options)
+        return response.json() //accountId
+      } catch (error) {
+        res.send(error)
+      }
+}
+async function handleAccountInformation (code){
+  const accountId = await handleAccountId(code)
+  const url = `https://api.withmono.com/accounts/${accountId.id}`;
+  const options = {method: 'GET', headers: {'mono-sec-key': 'live_sk_uauQJ2QMGBTeMmIzDVAU'}};
+try {
+  const response =await fetch  (url,options)
+  return response.json() //accountInformation
+} catch (error) {
+ res.send(error)
 }
 
+  
+}
 module.exports={
-  getAccountId :async(req,res,next)=>{
-   const{ code} = req.body
-    const accountId = await handleAccountId(code)
-    console.log(accountId)
-    res.status(200).json(accountId)
+  getAccountInformation :async(req,res,next)=>{
+    const{ code} = req.body
+    const accountInformation= await handleAccountInformation(code)
+    res.status(200).json(accountInformation)
     next()
 
-  },
-  getAccountInformation:()=>{
-    console.log(milk)
   }
   }
