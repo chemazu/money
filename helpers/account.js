@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+
+let milk = fun()
 module.exports={
   getAccountId :async(req,res,next)=>{
     const url = 'https://api.withmono.com/account/auth';
@@ -14,6 +16,8 @@ module.exports={
     res.send("went through")
     next()
 
-},
-
+  },
+  getAccountInformation:()=>{
+    console.log(milk)
+  }
   }
